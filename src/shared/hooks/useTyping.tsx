@@ -5,9 +5,7 @@ export const useTyping = (sentence: string) => {
     const [startTime, setStartTime] = useState<number | null>(null);
     const [totalKeystrokes, setTotalKeystrokes] = useState(0);
 
-    const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const val = e.target.value;
-
+    const onInputChange = (val: string) => {
         if (!startTime && val.length > 0) {
             setStartTime(Date.now());
         }

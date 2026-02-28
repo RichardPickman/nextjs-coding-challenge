@@ -1,3 +1,5 @@
+"use client";
+
 import { useUser } from "@/entities/User";
 import { useEffect, useState } from "react";
 import { socket } from "../../../socket";

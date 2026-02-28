@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { socket } from "../../../socket";
 import type { GameState } from "../types";
