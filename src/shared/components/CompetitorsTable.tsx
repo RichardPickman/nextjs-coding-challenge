@@ -1,42 +1,35 @@
 "use client";
 
-import { Table } from "lucide-react";
+import type { ReactNode } from "react";
 import { useGameState } from "../hooks/useGameState";
-import {
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "./ui/table";
+import { Label } from "./ui/label";
+
+const Wrapper = ({ children }: { children: ReactNode }) => (
+    <div className="flex flex-col gap-2">{children}</div>
+);
 
 export const CompetitorsTable = () => {
     const { players, sentence } = useGameState();
 
     return (
-        <Table>
-            <TableHeader>
-                <TableRow>
-                    <TableHead className="w-[100px]">User</TableHead>
-                    <TableHead>Sentence</TableHead>
-                    <TableHead>WPM</TableHead>
-                    <TableHead>Accuracy</TableHead>
-                    <TableHead>Progress</TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                {players.map((competitor) => (
-                    <TableRow key={competitor.id}>
-                        <TableCell className="font-medium max-w-32">
-                            {competitor.username}
-                        </TableCell>
-                        <TableCell>{sentence}</TableCell>
-                        <TableCell>{competitor.wpm}</TableCell>
-                        <TableCell>{competitor.accuracy}</TableCell>
-                        <TableCell>{competitor.progress}%</TableCell>
-                    </TableRow>
-                ))}
-            </TableBody>
-        </Table>
+        <Wrapper>
+            <div className="flex justify-between items-center">
+                <Label>Username</Label>
+                <Label>Accuracy</Label>
+                <Label>Progress</Label>
+                <Label>WPM</Label>
+            </div>
+            {players.map((player) => (
+                <div
+                    key={player.id}
+                    className="flex justify-between items-center"
+                >
+                    <Label>{player.username}</Label>
+                    <Label>{player.accuracy}</Label>
+                    <Label>{player.progress}</Label>
+                    <Label>{player.wpm}</Label>
+                </div>
+            ))}
+        </Wrapper>
     );
 };
