@@ -1,6 +1,8 @@
 "use client";
 
 import { useUser } from "@/entities/User";
+import { useEffect } from "react";
+import { socket } from "../../../socket";
 import { useGameState } from "../hooks/useGameState";
 import { useTyping } from "../hooks/useTyping";
 import { TypingDisplay } from "./TypingDisplay";
@@ -18,7 +20,12 @@ import { Progress } from "./ui/progress";
 export const TypingArena = () => {
     const { user } = useUser();
     const { sentence, timer, phase } = useGameState();
-    const { input, onInputChange } = useTyping(sentence);
+    const { input, onInputChange, totalKeystrokes, reset } =
+        useTyping(sentence);
+
+    useEffect(() => {
+        socket.emit("keystroke", { input, totalKeystrokes });
+    }, [input, totalKeystrokes, reset, user]);
 
     if (!user) {
         return null;
